@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+	<head>
+		<title>$!page_title</title>
+		<meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="#springUrl('/resources/css/bootstrap-theme.min.css')"  type="text/css" />
+		<link rel="stylesheet" href="#springUrl('/resources/css/bootstrap.min.css')"  type="text/css" />
+		<link rel="stylesheet" href="#springUrl('/resources/css/jasny-bootstrap.css')"  type="text/css" />
+		<link rel="stylesheet" href="#springUrl('/resources/css/dashboard.css')"  type="text/css" />
+		<link rel="stylesheet" href="#springUrl('/resources/css/jquery.Jcrop.css')"  type="text/css" />
+
+		<script type="text/javascript" src="#springUrl('/resources/libs/jquery.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/jquery.cookie.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/jquery.pagination.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/bootstrap.min.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/jasny-bootstrap.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/underscore-min.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/backbone.min.js')"></script>
+		<script type="text/javascript" src="#springUrl('/resources/libs/jquery.Jcrop.js')"></script>
+		<style type="text/css">
+	      body {
+	        padding-top: 60px;
+	      }
+	      .sidebar.well.span4{
+	        width: 180px;
+	      }
+	      .switch{
+	        display:inline-block;
+	        cursor:pointer;
+	      }
+    	</style>
+    	$!customcss
+	</head>
+	
+	<body>
+		#parse('/layout/header.vm')
+		<div class="container-fluid"">
+	      
+	      <div class='row'>
+		      #parse('/layout/left.vm')
+		  
+			  $!content
+			  
+		  </div>
+		  
+		</div>
+		$!module_script
+	</body>
+</html>

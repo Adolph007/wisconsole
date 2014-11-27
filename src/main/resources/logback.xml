@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds">
+	
+	<property resource="wisconsole.properties"/>
+	<property name="LOG_HOME" value="${logdir}"/>
+	<property name="BACKUP_LOG_HOME" value="${LOG_HOME}/backup"></property>
+	
+  	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	      <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} %n%msg%n%n</pattern>
+	    </encoder>
+  	</appender>
+  	 
+  	<appender name="MethodProcessTimeLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+  	 	<file>${LOG_HOME}/webiov_analysis.log</file>
+  	 	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+  	 		<fileNamePattern>${BACKUP_LOG_HOME}/webiov_analysis.%d{yyyy-MM-dd}.log</fileNamePattern>
+  	 		<maxHistory>10</maxHistory>
+  	 	</rollingPolicy>
+		<append>true</append>
+		<encoder>
+			 <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} %n%msg%n%n</pattern>
+		</encoder>
+  	</appender>
+  	 
+  	<root level="DEBUG">
+   		<appender-ref ref="STDOUT" />
+   		<appender-ref ref="MethodProcessTimeLog"/>
+ 	</root>
+</configuration>

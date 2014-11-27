@@ -1,0 +1,33 @@
+#define($content)
+<div class="container">
+  <form class="form-signin" role="form">
+    <h2 class="form-signin-heading">新用户注册</h2>
+    <label for="inputEmail" class="sr-only">手机号：</label>
+    <input type="text" id="inputPhone" class="form-control" placeholder="手机号" required autofocus>
+    <label for="inputPassword" class="sr-only">密码：</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
+    <label for="inputCode" class="sr-only">验证码：</label>
+    <input type="text" id="inputCode" class="form-control" placeholder="验证码" required>
+    
+    <button class="btn btn-lg btn-primary btn-block" type="submit" onclick="return sigin()">确定</button>
+  </form>
+</div>
+#end
+
+#define($module_script)
+<script type="application/javascript">
+$(function(){
+    
+});
+
+function sigin(target){
+	var phone = $('#inputPhone').val();
+	var pass = $('#inputPassword').val();
+	console.log("phone:" + phone);
+	$.post("/api/register", {phone:phone, pwd:pass}, function(result){
+		console.log("result:" + result);
+	}, "json");
+	return false;
+}
+</script>
+#end

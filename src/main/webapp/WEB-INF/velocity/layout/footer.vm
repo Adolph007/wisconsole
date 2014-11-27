@@ -1,0 +1,12 @@
+<!--
+<div id="footer" class="footer clearfix">
+   <div class="panel-header panel-title" style="text-align: center;">
+		Copyright © 2014.<a href="http://www.wisdom.com">北京中科韦摩教育咨询有限公司</a>
+	</div>
+</div>
+
+-->
+
+<footer>
+    <p>&copy; Company 2014 <a href='http://www.wisdom.com' target='_blank' title='Wisdom'>北京中科韦摩教育咨询有限公司</a></p>
+</footer>

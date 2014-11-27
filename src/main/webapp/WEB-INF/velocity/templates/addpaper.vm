@@ -1,0 +1,175 @@
+#define($customcss)
+<style type="text/css">
+	
+</style>
+#end
+
+#define($module_script)
+<script type="application/javascript">
+$(function(){
+     var Dimension = Backbone.Model.extend({
+	    defaults: function() {
+	      return {
+	        name: "",
+	        exp: ""
+	      };
+	    },
+	    tovalue: function() {
+	      return this.get('name') + "," + this.get('exp');
+	    }
+	  });
+	  
+	  var DimensionList = Backbone.Collection.extend({});
+	  var Dims = new DimensionList();
+	  var DimensionView = Backbone.View.extend({
+	    tagName:  "tr",	
+	    
+	    events: {
+	      "click button.close" : "clear"
+	    },
+	  	initialize: function() {
+	      	this.listenTo(this.model, 'destroy', this.remove);
+	    },
+	    render: function() {
+	    	var content = '<td width="20%">' + this.model.get('name') + 
+	    		'</td><td>' + this.model.get('exp') + 
+	    		'</td><td>' +
+			  		'<button type="button" class="close">' +
+			  		'<span aria-hidden="true">&times;</span>' +
+			  		'<span class="sr-only">Close</span></button>' +
+			  	'</td>';
+	      	this.$el.html(content);
+	      	return this;
+	    },
+	    clear: function() {
+	        this.model.destroy();
+	    }
+	  });
+	  
+	  var DimsView = Backbone.View.extend({
+	    el: $("#dimsview"),
+	  	initialize: function() {
+	  		this.listenTo(Dims, 'add', this.addOne);
+	  	},
+	  	addOne: function(dimension) {
+	  		
+	      var view = new DimensionView({model: dimension});
+	      var child = view.render().el;
+	      this.$el.append(child);
+	    }
+	  });
+	  
+	  var dimstable = new DimsView();
+	  
+	  $('#dimAddBtn').click(function(target){
+	  	var title  = $('#directionName').val();
+	  	var exp  = $('#directionExp').val();	
+	  	Dims.add({name: title, exp: exp});
+	  	$('#directionName').val("");
+	  	$('#directionExp').val("");
+	  });
+	  
+	  $('#submitBtn').click(function(){
+	  	var dimstring = "";
+	  	console.log("size:" + _.size(Dims));
+	  	Dims.forEach(function(d){
+	  		dimstring += d.get('name') + ',' + d.get('exp') + '\r\n';
+	  	});
+	  	console.log('dimstring:' + dimstring);
+	  	$('#dimstring').val(dimstring);
+		$('#quesForm').submit();
+	  });
+	  
+	  showNavByModule("addpaper");
+});
+	
+</script>
+#end
+
+#define($content)
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h5 class="page-header"><label>添加问题</label></h5>
+	<div class="row">
+	<form action="/admin/paper" id="quesForm" method="post" class="form-horizontal" enctype="multipart/form-data">
+		<input type="hidden" value="" name="dimstring" id="dimstring">
+		<input type="hidden" value="3" name="rv" id="rv">
+		    <div class="form-group">
+			    <label for="inputTitle" class="col-sm-2 control-label">问卷标题</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="inputTitle" name="title" placeholder="问卷标题">
+			    </div>
+			</div>
+		    <div class="form-group">
+			    <label for="inputAnswerOpt" class="col-sm-2 control-label" >答案选项</label>
+			    <div class="col-sm-10">
+			    	<input type="text" class="form-control" id="inputAnswerOpt" name="options" placeholder="用';'分隔 " />
+			    </div>
+		    </div>
+		    <div class="form-group">
+			    <label for="inputAnswerOpt" class="col-sm-2 control-label" >问题导入</label>
+			    <div class="col-sm-10">
+			    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+				  <div class="form-control" data-trigger="fileinput">
+				  <i class="glyphicon glyphicon-file fileinput-exists"></i> 
+				  <span class="fileinput-filename"></span></div>
+				  <span class="input-group-addon btn btn-default btn-file">
+				  <span class="fileinput-new">选择文件</span>
+				  <span class="fileinput-exists">更换</span>
+				  <input type="file" name="questionfile"></span>
+				  <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">移除</a>
+				</div>
+				</div>
+		    </div>
+		    <div class="form-group">
+			    <label for="inputRValue" class="col-sm-2 control-label" >反向值</label>
+			    <div class="col-sm-2">
+			    	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					    3 <span class="caret"></span>
+					</button>
+					  <ul class="dropdown-menu" role="menu">
+					    <li><a href="#">3</a></li>
+					    <li><a href="#">4</a></li>
+					    <li><a href="#">5</a></li>
+					    <li><a href="#">6</a></li>
+					  </ul>
+			    </div>
+			    <label for="inputU" class="col-sm-2 control-label" >U值</label>
+			    <div class="col-sm-2"><input type="text" class="form-control" name="u" id="inputU" placeholder="均值"></div>
+			    <label for="inputV" class="col-sm-2 control-label" >V值</label>
+			    <div class="col-sm-2"><input type="text" class="form-control" name="v" id="inputV" placeholder="方差"></div>
+		    </div>
+		    <div class="form-group">
+			    <label for="inputDirection" class="col-sm-2 control-label" >维度设置</label>
+			    <div class="col-sm-10">
+			    <div class="row">
+			    <div class="col-sm-12">
+			    <table class="table" id='dimsview'>
+				 	
+				</table>
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2">
+				    	<input type="text" class="form-control" id="directionName" placeholder="名称 " />
+				    </div>
+				    <div class="col-sm-7">
+				    	<input type="text" class="form-control" id="directionExp" placeholder="计算表达式" />
+				    </div>
+				    <div class="col-sm-1">
+				    <input id="dimAddBtn" class="btn btn-default" type="button" value="添加">
+				    </div>
+				</div>
+				</div>
+			   
+		    </div>
+		    
+		    <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <input id='submitBtn' type="button" class="btn btn-default"  value="提交"></button>
+			    </div>
+			</div>
+		   
+	</form>
+	</div>
+</div>
+#end

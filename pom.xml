@@ -10,8 +10,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
 		<!-- Dependency version -->
 		<spring.version>3.1.2.RELEASE</spring.version>
 		<org.eclipse.jetty.version>8.1.5.v20120716</org.eclipse.jetty.version>
@@ -112,10 +112,16 @@
 			<artifactId>jaxb-api</artifactId>
 			<version>2.0</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
-		<finalName>webiov</finalName>
+		<finalName>wisconsole</finalName>
 
 		<resources>
 			<resource>
@@ -146,12 +152,12 @@
 					<useFileMappedBuffer>false</useFileMappedBuffer>
 					<connectors>
 						<connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-							<port>18080</port>
+							<port>9000</port>
 							<maxIdleTime>60000</maxIdleTime>
 						</connector>
 					</connectors>
-					<stopKey>docviewstopkey</stopKey>
-					<stopPort>18081</stopPort>
+					<stopKey>wisconsolestopkey</stopKey>
+					<stopPort>9001</stopPort>
 					<jvmArgs>-Xms512M -Xmx1024M -XX:PermSize=128M -XX:MaxPermSize=256M</jvmArgs>
 					<systemProperties>
 						<systemProperty>
