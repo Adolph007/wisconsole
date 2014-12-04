@@ -6,7 +6,7 @@ $(function(){
     var Assess = Backbone.Model.extend({
 	    defaults: function() {
 	        return {
-	        	id: "",
+	        	_id: "",
 	            title: "",
 	            created_at: ""
 	        };
@@ -27,7 +27,7 @@ $(function(){
     	render: function() {
     		var time = new Date(this.model.get('created_at'));
     		var t = time.getFullYear() + "-" + (time.getMonth()+1)+"-"+time.getDate();
-    		var content = '<td width="70%"><a href="">' + this.model.get('title') + 
+    		var content = '<td width="70%"><a href="/console/paper/' + this.model.get('_id') + '">' + this.model.get('title') + 
     		'</a></td><td>' + t + 
     		'</td><td class="rowlink-skip"><a href="#">删除</a></td>';
       		this.$el.html(content);

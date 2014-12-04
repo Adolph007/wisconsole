@@ -1,0 +1,52 @@
+#define($module_script)
+<script type="application/javascript">
+$(function(){
+   var paperid = "$!paperid";
+   var Assess = Backbone.Model.extend({url:'/api/paper/' + paperid});
+   var AssessView = Backbone.View.extend({
+    	el: $("#quesview"),	
+    
+    	events: {
+      
+    	},
+  		initialize: function() {
+      		this.listenTo(this.model, 'change', this.render);
+    	},
+    	render: function() {
+    	    var _this = this;
+    		var ques = this.model.get("qs");
+    		var opts = this.model.get("opts");
+    		_.each(ques, function(item){
+    		    var content = '<label><h5>'+item+'</h5></label>';
+    		    _.each(opts, function(opt, index){
+    		        content += '<label class="radio"> <input type="radio" name=q'+ index +
+    		        		   ' value=' + index + '>' + opt + ' </label>';
+    		    });
+    		    _this.$el.append(content);
+    		});
+    		
+    		var title = this.model.get("title");
+	        $("#papertitle").html(title);
+      		return _this;
+    	},
+   	    clear: function() {
+        	this.model.destroy();
+    	}
+  	});
+  	var assess = new Assess();
+  	var paperview = new AssessView({model: assess});
+  	assess.fetch();
+});	
+</script>
+#end
+
+#define($content)
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h5 class="page-header"><label id="papertitle"></label></h5>
+    <input type="hidden" id=paperid value="$!paperid">
+	<div class="row">
+		<div class="div_question" id="quesview">
+		</div>
+	</div>
+</div>
+#end

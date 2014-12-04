@@ -49,6 +49,7 @@
 			<map>
 			    <entry key="/register" value="layout/register.vm" />
 			    <entry key="/sigin" value="layout/register.vm" />
+			    <entry key="/paper" value="layout/questions.vm" />
 				<entry key="*" value="layout/admin.vm" />
 			</map>
 		</property>
