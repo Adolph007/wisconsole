@@ -25,6 +25,20 @@ public class PaperController {
         return mv;
     }
 	
+	@RequestMapping(value = "/console/addmsg", method = RequestMethod.GET)
+    public ModelAndView addmsg() {
+        ModelAndView mv = new ModelAndView("addmsg");
+        mv.addObject("page_title", "管理平台");
+        return mv;
+    }
+	
+	@RequestMapping(value = "/console/listmsg", method = RequestMethod.GET)
+    public ModelAndView listmsg() {
+        ModelAndView mv = new ModelAndView("listmsg");
+        mv.addObject("page_title", "管理平台");
+        return mv;
+    }
+	
 	@RequestMapping(value = "/console/paper/{id}", method = RequestMethod.GET)
     public ModelAndView paper(@PathVariable(value = "id") String paperid) {
         ModelAndView mv = new ModelAndView("/paper");
