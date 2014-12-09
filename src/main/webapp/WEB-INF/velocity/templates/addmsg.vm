@@ -1,0 +1,67 @@
+#define($customcss)
+<style type="text/css">
+	
+</style>
+#end
+
+#define($module_script)
+<script type="application/javascript">
+$(function(){
+    $('ul#msgtype li').click(function(){
+        $('#msgbtn').html($(this).attr("iname") + '<span class="caret"></span>');
+        $('#inputtype').val($(this).attr("itype"));
+    });
+    $('.dropdown-toggle').dropdown();
+    showNavByModule("addmsg");
+});
+	
+</script>
+#end
+
+#define($content)
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h5 class="page-header"><label>新建资讯</label></h5>
+	<div class="row">
+	<form action="/api/msg" id="quesForm" method="post" class="form-horizontal" enctype="multipart/form-data">
+		    <input type="hidden" value="1" name="type" id="inputtype">
+		
+		    <div class="form-group">
+			    <label for="inputRValue" class="col-sm-2 control-label" >资讯类别</label>
+			    <div class="col-sm-2">
+			    	<button id="msgbtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+					     成长<span class="caret"></span>
+					</button>
+					  <ul id="msgtype" class="dropdown-menu" role="menu">
+					    <li itype="1" iname="成长"><a href="#">成长</a></li>
+					    <li itype="2" iname="依恋"> <a href="#">依恋</a></li>
+					    <li itype="3" iname="解读"><a href="#">解读</a></li>
+					  </ul>
+			    </div>
+		    </div>
+		    <div class="form-group">
+			    <label for="inputTitle" class="col-sm-2 control-label">标题</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="inputTitle" name="title" placeholder="标题">
+			    </div>
+			</div>
+			<div class="form-group">
+			    <label for="inputDesc" class="col-sm-2 control-label">简述</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" id="inputDesc" name="desc" placeholder="简述">
+			    </div>
+			</div>
+			<div class="form-group">
+			    <label for="inputContent" class="col-sm-2 control-label">内容</label>
+			    <div class="col-sm-10">
+			      <textarea class="form-control" id="inputContent" name="content" rows="3"></textarea>
+			    </div>
+			</div>
+		    <div class="form-group">
+			    <div class="col-sm-offset-2 col-sm-10">
+			      <input id='submitBtn' type="submit" class="btn btn-default"  value="提交"></button>
+			    </div>
+			</div>
+	</form>
+	</div>
+</div>
+#end
