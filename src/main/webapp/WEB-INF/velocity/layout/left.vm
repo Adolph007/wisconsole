@@ -4,9 +4,9 @@
     <!--<li><a href="#">用户综合管理</a></li>-->
     <li id="nav_adduser"><a href="/console/adduser">添加用户账号</a></li>
   </ul>
- <ul class="nav nav-sidebar">
-    <li><a href="">查看所有测试题</a></li>
-    <li><a href="">添加测试题</a></li>
+ <ul id='msgnav' class="nav nav-sidebar">
+    <li id="nav_addmsg"><a href="/console/addmsg">新建资讯</a></li>
+    <li id="nav_listmsg"><a href="/console/listmsg">查看所有资讯</li>
   </ul> 
   <ul id='papernav' class="nav nav-sidebar">
   	<li id="nav_addpaper"><a href="/console/addpaper">新建问卷</a></li>
@@ -21,16 +21,35 @@ function showNavByModule(m)
 	if(m == "addpaper"){
 		$("ul#usernav li").removeClass("active");
     	$("ul#papernav li").removeClass("active");
+    	$("ul#msgnav li").removeClass("active");
 		$("li#nav_addpaper").addClass("active");
 	}
 	else if(m == "listpaper"){
 		$("ul#usernav li").removeClass("active");
     	$("ul#papernav li").removeClass("active");
+    	$("ul#msgnav li").removeClass("active");
 		$("li#nav_listpaper").addClass("active");
+	}else if(m == "addpaper"){
+		$("ul#usernav li").removeClass("active");
+    	$("ul#papernav li").removeClass("active");
+    	$("ul#msgnav li").removeClass("active");
+		$("li#nav_addpaper").addClass("active");
+	}
+	else if(m == "addmsg"){
+		$("ul#usernav li").removeClass("active");
+    	$("ul#papernav li").removeClass("active");
+    	$("ul#msgnav li").removeClass("active");
+		$("li#nav_addmsg").addClass("active");
+	}else if(m == "listmsg"){
+		$("ul#usernav li").removeClass("active");
+    	$("ul#papernav li").removeClass("active");
+    	$("ul#msgnav li").removeClass("active");
+		$("li#nav_listmsg").addClass("active");
 	}
 	else{
 	    $("ul#papernav li").removeClass("active");
 	    $("ul#usernav li").removeClass("active");
+	    $("ul#msgnav li").removeClass("active");
 		$("li#nav_adduser").addClass("active");
 	}
 };
